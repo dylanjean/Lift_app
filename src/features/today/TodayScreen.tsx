@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { nextDayIndex } from '../../lib/rotation'
-import { DAILY_GOAL_OZ, QUICK_ADDS_OZ, mlToOz } from '../../lib/water'
+import { DAILY_GOAL_OZ, mlToOz } from '../../lib/water'
 import { elapsedSeconds, formatHMS } from '../../lib/time'
 import { useTick } from '../../lib/useTick'
+import { useActiveFast } from '../fast/queries'
+import { WaterQuickAdd } from './WaterQuickAdd'
 import {
-  useActiveFast,
   useActiveSession,
-  useAddWater,
   useLastCompletedDayIndex,
   useProgramDays,
   useStartSession,
@@ -20,7 +20,6 @@ export function TodayScreen() {
   const active = useActiveSession()
   const startSession = useStartSession()
   const waterMl = useTodayWaterMl()
-  const addWater = useAddWater()
   const fast = useActiveFast()
 
   useTick(1000, Boolean(fast.data)) // fast chip re-renders each second only while fasting
@@ -59,13 +58,15 @@ export function TodayScreen() {
         <span>
           {new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
         </span>
-        {fast.data ? (
-          <span className="text-plate-yellow">
-            FASTING {formatHMS(elapsedSeconds(fast.data.started_at))}
-          </span>
-        ) : (
-          <span>NO FAST</span>
-        )}
+        <Link to="/fast" className="flex h-11 items-center">
+          {fast.data ? (
+            <span className="text-plate-yellow">
+              FASTING {formatHMS(elapsedSeconds(fast.data.started_at))}
+            </span>
+          ) : (
+            <span>NO FAST ›</span>
+          )}
+        </Link>
       </div>
 
       {/* the day in focus */}
@@ -95,18 +96,7 @@ export function TodayScreen() {
               style={{ width: `${Math.min(100, (waterOz / DAILY_GOAL_OZ) * 100)}%` }}
             />
           </div>
-          <div className="flex gap-2">
-            {QUICK_ADDS_OZ.map((oz) => (
-              <button
-                key={oz}
-                type="button"
-                onClick={() => addWater.mutate(oz)}
-                className="h-14 flex-1 rounded-sm border border-raised bg-raised font-mono text-sm text-ink active:border-plate-blue"
-              >
-                +{oz} oz
-              </button>
-            ))}
-          </div>
+          <WaterQuickAdd />
         </div>
 
         <button

@@ -4,6 +4,7 @@ import { useSession } from './features/auth/useSession'
 import { SignIn } from './features/auth/SignIn'
 import { TodayScreen } from './features/today/TodayScreen'
 import { ActiveSessionScreen } from './features/session/ActiveSessionScreen'
+import { FastScreen } from './features/fast/FastScreen'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<TodayScreen />} />
           <Route path="/session/:id" element={<ActiveSessionScreen />} />
+          <Route path="/fast" element={<FastScreen />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

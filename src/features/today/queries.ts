@@ -112,18 +112,3 @@ export function useAddWater() {
   })
 }
 
-/** The running fast if any (schema guarantees at most one). */
-export function useActiveFast() {
-  return useQuery({
-    queryKey: ['activeFast'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('fast_session')
-        .select('id, started_at, target_hours')
-        .is('ended_at', null)
-        .maybeSingle()
-      if (error) throw error
-      return data
-    },
-  })
-}
