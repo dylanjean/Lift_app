@@ -13,6 +13,9 @@
   --color-muted: #8a8580;
 
   --color-plate-blue: #1e5aa8;
+  /* chart-mark tint of plate blue: the brand step fails 3:1 on the dark
+     surface as a thin line; this one passes the dataviz validator */
+  --color-chart-blue: #4a82c8;
   --color-plate-red: #c8362c;
   --color-plate-yellow: #e8b923;
   --color-plate-green: #2e7d46;

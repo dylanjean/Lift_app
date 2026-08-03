@@ -82,6 +82,10 @@ export function TodayScreen() {
 
       {/* bottom third: water + primary action */}
       <div className="flex flex-col gap-4">
+        <div className="flex gap-6 font-mono text-xs">
+          <Link to="/progress" className="flex h-11 items-center text-muted">PROGRESS ›</Link>
+          <Link to="/history" className="flex h-11 items-center text-muted">HISTORY ›</Link>
+        </div>
         <div>
           <div className="mb-2 flex items-baseline justify-between">
             <span className="text-sm text-muted">Water</span>
