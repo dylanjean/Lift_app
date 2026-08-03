@@ -1,28 +1,36 @@
-import { supabase } from './lib/supabase'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useSession } from './features/auth/useSession'
 import { SignIn } from './features/auth/SignIn'
+import { TodayScreen } from './features/today/TodayScreen'
+import { ActiveSessionScreen } from './features/session/ActiveSessionScreen'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      // gym network is flaky; don't hammer refetches on every focus flip
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 function App() {
   const session = useSession()
 
   // Restoring persisted session — render nothing to avoid a sign-in flash.
   if (session === undefined) return null
-
   if (session === null) return <SignIn />
 
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-2 font-sans">
-      <h1 className="font-display text-2xl font-bold tracking-wide">PPL TRACKER</h1>
-      <p className="text-sm text-muted">Signed in as {session.user.email}</p>
-      <p className="text-sm text-plate-green">Milestone 0 complete</p>
-      <button
-        type="button"
-        onClick={() => void supabase.auth.signOut()}
-        className="mt-8 h-14 min-w-40 rounded-sm border border-raised bg-raised px-6 text-sm text-muted"
-      >
-        Sign out
-      </button>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<TodayScreen />} />
+          <Route path="/session/:id" element={<ActiveSessionScreen />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   )
 }
 

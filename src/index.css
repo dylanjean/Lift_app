@@ -18,10 +18,11 @@
   --color-plate-green: #2e7d46;
   --color-plate-white: #f2f0ec;
 
-  /* Archivo Expanded / Public Sans / IBM Plex Mono wired up with the
-     design pass in Milestone 1 — fallbacks only for now. */
-  --font-display: 'Archivo Expanded', 'Archivo', sans-serif;
-  --font-sans: 'Public Sans', system-ui, sans-serif;
+  /* Archivo is a variable font with a width axis — the display face gets
+     its "Expanded" scoreboard look from font-stretch (see .font-display
+     rule below). Plex Mono keeps tabular figures so timers don't jitter. */
+  --font-display: 'Archivo Variable', sans-serif;
+  --font-sans: 'Public Sans Variable', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   --radius-sm: 2px;
@@ -30,4 +31,14 @@
 html {
   background-color: var(--color-surface);
   color: var(--color-ink);
+}
+
+/* Archivo Expanded: widen the variable font wherever the display face is used. */
+.font-display {
+  font-stretch: 125%;
+}
+
+/* Timers and logged numbers must not jitter as digits change. */
+.font-mono {
+  font-variant-numeric: tabular-nums;
 }
