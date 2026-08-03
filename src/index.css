@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — see CLAUDE.md §7.
+ * Base: warm rubber-flooring charcoal. Accents: IPF calibrated plate
+ * colors, used semantically (blue = primary action, red = PR/destructive,
+ * yellow = timer/in-progress, green = done/goal, white = emphasis numerals).
+ */
+@theme {
+  --color-surface: #1b1a18;
+  --color-raised: #232220;
+  --color-ink: #e8e4de;
+  --color-muted: #8a8580;
+
+  --color-plate-blue: #1e5aa8;
+  --color-plate-red: #c8362c;
+  --color-plate-yellow: #e8b923;
+  --color-plate-green: #2e7d46;
+  --color-plate-white: #f2f0ec;
+
+  /* Archivo Expanded / Public Sans / IBM Plex Mono wired up with the
+     design pass in Milestone 1 — fallbacks only for now. */
+  --font-display: 'Archivo Expanded', 'Archivo', sans-serif;
+  --font-sans: 'Public Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius-sm: 2px;
+}
+
+html {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
