@@ -1,0 +1,122 @@
+{
+  "$comment": "3 Day PPL for Beginners — Muscle & Strength. Planned slots come from the source tables. Alternates beyond 'Pull Up → Lat Pull Down' are app-authored equipment substitutions, rank 1 = first suggestion; edit freely, the loader is name-driven.",
+  "program": {
+    "name": "3 Day PPL for Beginners",
+    "source_url": "https://www.muscleandstrength.com/workouts/3-day-PPL-workout-for-beginners",
+    "weeks": 10
+  },
+  "exercises": [
+    { "name": "Military Press", "primary_muscle": "shoulders", "equipment": "barbell", "cues": "Standing, glutes tight, bar path close to face, lock out overhead" },
+    { "name": "Dumbbell Bench Press", "primary_muscle": "chest", "equipment": "dumbbell", "cues": "Feet planted, slight arch, elbows ~45°, press to full lockout" },
+    { "name": "Tricep Dip", "primary_muscle": "triceps", "equipment": "bodyweight", "cues": "Torso upright for triceps, descend to 90°, no shoulder shrug" },
+    { "name": "Lateral Raise", "primary_muscle": "shoulders", "equipment": "dumbbell", "cues": "Soft elbows, raise to shoulder height, lead with elbows" },
+    { "name": "Lying Dumbbell Extension", "primary_muscle": "triceps", "equipment": "dumbbell", "cues": "Elbows fixed and pointed up, lower behind head, extend" },
+    { "name": "Tricep Pushdown", "primary_muscle": "triceps", "equipment": "cable", "cues": "Elbows pinned to sides, full extension, control the return" },
+    { "name": "Pull Up", "primary_muscle": "lats", "equipment": "bodyweight", "cues": "Full hang, chest to bar, no kipping" },
+    { "name": "Bent-Over Barbell Row", "primary_muscle": "back", "equipment": "barbell", "cues": "Hinge ~45°, flat back, pull to lower ribs, squeeze" },
+    { "name": "T-Bar Row", "primary_muscle": "back", "equipment": "machine", "cues": "Chest up, drive elbows back, don't jerk the weight" },
+    { "name": "Dumbbell Shrug", "primary_muscle": "traps", "equipment": "dumbbell", "cues": "Straight up and down, pause at top, no rolling" },
+    { "name": "Preacher Curl", "primary_muscle": "biceps", "equipment": "ez-bar", "cues": "Armpits tight to pad, full extension at bottom, no bounce" },
+    { "name": "Hammer Curl", "primary_muscle": "biceps", "equipment": "dumbbell", "cues": "Neutral grip, elbows pinned, control the negative" },
+    { "name": "Barbell Squat", "primary_muscle": "quads", "equipment": "barbell", "cues": "Brace, break at hips and knees together, depth to parallel+" },
+    { "name": "Deadlift", "primary_muscle": "hamstrings", "equipment": "barbell", "cues": "Bar over midfoot, wedge in, push floor away, lockout tall" },
+    { "name": "Leg Press", "primary_muscle": "quads", "equipment": "machine", "cues": "Feet mid-platform, knees track toes, don't lock out hard" },
+    { "name": "Lying Leg Curl", "primary_muscle": "hamstrings", "equipment": "machine", "cues": "Hips pinned to bench, full curl, slow eccentric" },
+    { "name": "Leg Extension", "primary_muscle": "quads", "equipment": "machine", "cues": "Pause at full extension, control down, no swinging" },
+    { "name": "Seated Calf Raise", "primary_muscle": "calves", "equipment": "machine", "cues": "Full stretch at bottom, pause at top, no bouncing" },
+
+    { "name": "Seated Dumbbell Shoulder Press", "primary_muscle": "shoulders", "equipment": "dumbbell", "cues": null },
+    { "name": "Machine Shoulder Press", "primary_muscle": "shoulders", "equipment": "machine", "cues": null },
+    { "name": "Barbell Bench Press", "primary_muscle": "chest", "equipment": "barbell", "cues": null },
+    { "name": "Machine Chest Press", "primary_muscle": "chest", "equipment": "machine", "cues": null },
+    { "name": "Push-Up", "primary_muscle": "chest", "equipment": "bodyweight", "cues": null },
+    { "name": "Bench Dip", "primary_muscle": "triceps", "equipment": "bodyweight", "cues": null },
+    { "name": "Close-Grip Bench Press", "primary_muscle": "triceps", "equipment": "barbell", "cues": null },
+    { "name": "Cable Lateral Raise", "primary_muscle": "shoulders", "equipment": "cable", "cues": null },
+    { "name": "Machine Lateral Raise", "primary_muscle": "shoulders", "equipment": "machine", "cues": null },
+    { "name": "Overhead Dumbbell Extension", "primary_muscle": "triceps", "equipment": "dumbbell", "cues": null },
+    { "name": "EZ-Bar Skullcrusher", "primary_muscle": "triceps", "equipment": "ez-bar", "cues": null },
+    { "name": "Overhead Cable Extension", "primary_muscle": "triceps", "equipment": "cable", "cues": null },
+    { "name": "Lat Pull Down", "primary_muscle": "lats", "equipment": "cable", "cues": null },
+    { "name": "Assisted Pull Up", "primary_muscle": "lats", "equipment": "machine", "cues": null },
+    { "name": "Dumbbell Row", "primary_muscle": "back", "equipment": "dumbbell", "cues": null },
+    { "name": "Seated Cable Row", "primary_muscle": "back", "equipment": "cable", "cues": null },
+    { "name": "Chest-Supported Row", "primary_muscle": "back", "equipment": "machine", "cues": null },
+    { "name": "Barbell Shrug", "primary_muscle": "traps", "equipment": "barbell", "cues": null },
+    { "name": "Cable Shrug", "primary_muscle": "traps", "equipment": "cable", "cues": null },
+    { "name": "EZ-Bar Curl", "primary_muscle": "biceps", "equipment": "ez-bar", "cues": null },
+    { "name": "Dumbbell Curl", "primary_muscle": "biceps", "equipment": "dumbbell", "cues": null },
+    { "name": "Cable Curl", "primary_muscle": "biceps", "equipment": "cable", "cues": null },
+    { "name": "Cable Hammer Curl", "primary_muscle": "biceps", "equipment": "cable", "cues": null },
+    { "name": "Reverse Curl", "primary_muscle": "biceps", "equipment": "ez-bar", "cues": null },
+    { "name": "Goblet Squat", "primary_muscle": "quads", "equipment": "dumbbell", "cues": null },
+    { "name": "Hack Squat", "primary_muscle": "quads", "equipment": "machine", "cues": null },
+    { "name": "Smith Machine Squat", "primary_muscle": "quads", "equipment": "machine", "cues": null },
+    { "name": "Romanian Deadlift", "primary_muscle": "hamstrings", "equipment": "barbell", "cues": null },
+    { "name": "Trap Bar Deadlift", "primary_muscle": "hamstrings", "equipment": "barbell", "cues": null },
+    { "name": "Dumbbell Romanian Deadlift", "primary_muscle": "hamstrings", "equipment": "dumbbell", "cues": null },
+    { "name": "Bulgarian Split Squat", "primary_muscle": "quads", "equipment": "dumbbell", "cues": null },
+    { "name": "Dumbbell Lunge", "primary_muscle": "quads", "equipment": "dumbbell", "cues": null },
+    { "name": "Seated Leg Curl", "primary_muscle": "hamstrings", "equipment": "machine", "cues": null },
+    { "name": "Standing Calf Raise", "primary_muscle": "calves", "equipment": "machine", "cues": null },
+    { "name": "Single-Leg Dumbbell Calf Raise", "primary_muscle": "calves", "equipment": "dumbbell", "cues": null }
+  ],
+  "days": [
+    {
+      "day_index": 0,
+      "label": "Push",
+      "slots": [
+        { "exercise": "Military Press", "sets": 5, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "Dumbbell Bench Press", "sets": 3, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "Tricep Dip", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Lateral Raise", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Lying Dumbbell Extension", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Tricep Pushdown", "sets": 3, "reps": "8", "rest_seconds": 120 }
+      ]
+    },
+    {
+      "day_index": 1,
+      "label": "Pull",
+      "slots": [
+        { "exercise": "Pull Up", "sets": 5, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "Bent-Over Barbell Row", "sets": 3, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "T-Bar Row", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Dumbbell Shrug", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Preacher Curl", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Hammer Curl", "sets": 3, "reps": "8", "rest_seconds": 120 }
+      ]
+    },
+    {
+      "day_index": 2,
+      "label": "Legs",
+      "slots": [
+        { "exercise": "Barbell Squat", "sets": 5, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "Deadlift", "sets": 3, "reps": "5", "rest_seconds": 120 },
+        { "exercise": "Leg Press", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Lying Leg Curl", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Leg Extension", "sets": 3, "reps": "8", "rest_seconds": 120 },
+        { "exercise": "Seated Calf Raise", "sets": 3, "reps": "8", "rest_seconds": 120 }
+      ]
+    }
+  ],
+  "alternates": {
+    "Military Press": ["Seated Dumbbell Shoulder Press", "Machine Shoulder Press"],
+    "Dumbbell Bench Press": ["Barbell Bench Press", "Machine Chest Press", "Push-Up"],
+    "Tricep Dip": ["Push-Up", "Bench Dip", "Close-Grip Bench Press"],
+    "Lateral Raise": ["Cable Lateral Raise", "Machine Lateral Raise"],
+    "Lying Dumbbell Extension": ["Overhead Dumbbell Extension", "EZ-Bar Skullcrusher"],
+    "Tricep Pushdown": ["Overhead Cable Extension", "Bench Dip"],
+    "Pull Up": ["Lat Pull Down", "Assisted Pull Up"],
+    "Bent-Over Barbell Row": ["Dumbbell Row", "Seated Cable Row", "Chest-Supported Row"],
+    "T-Bar Row": ["Seated Cable Row", "Chest-Supported Row", "Dumbbell Row"],
+    "Dumbbell Shrug": ["Barbell Shrug", "Cable Shrug"],
+    "Preacher Curl": ["EZ-Bar Curl", "Dumbbell Curl", "Cable Curl"],
+    "Hammer Curl": ["Cable Hammer Curl", "Reverse Curl"],
+    "Barbell Squat": ["Goblet Squat", "Hack Squat", "Smith Machine Squat"],
+    "Deadlift": ["Romanian Deadlift", "Trap Bar Deadlift"],
+    "Leg Press": ["Hack Squat", "Goblet Squat", "Dumbbell Lunge"],
+    "Lying Leg Curl": ["Seated Leg Curl", "Dumbbell Romanian Deadlift"],
+    "Leg Extension": ["Bulgarian Split Squat", "Dumbbell Lunge"],
+    "Seated Calf Raise": ["Standing Calf Raise", "Single-Leg Dumbbell Calf Raise"]
+  }
+}

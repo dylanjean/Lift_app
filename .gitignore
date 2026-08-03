@@ -12,8 +12,9 @@ dist
 dist-ssr
 *.local
 
-# Claude Code local settings
+# Claude Code local settings (launch.json has machine-specific paths)
 .claude/settings.local.json
+.claude/launch.json
 
 # Vercel
 .vercel
