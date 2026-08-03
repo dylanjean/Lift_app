@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 import { elapsedSeconds, formatHMS, formatMS } from '../../lib/time'
 import { useTick } from '../../lib/useTick'
 import { useWakeLock } from '../../lib/useWakeLock'
+import { PlateStack } from '../../components/PlateStack'
 import { SetRow } from './SetRow'
 import { SwapSheet } from './SwapSheet'
 import type { LoggedSet, Slot, SlotExercise } from './queries'
@@ -219,9 +220,14 @@ function SlotSets({
   // Suggestions come only from sets of the exercise currently in effect —
   // after a swap, the planned lift's weights are the wrong hint (§6).
   const lastLogged = slotSets.filter((s) => s.exercise_id === currentExercise.id).at(-1)
+  // the weight you're about to put on the bar
+  const workingWeight = lastLogged?.weight ?? prev.data?.[prev.data.length - 1]?.weight
 
   return (
     <>
+      {currentExercise.equipment === 'barbell' && workingWeight !== undefined && (
+        <PlateStack weight={workingWeight} className="mb-1" />
+      )}
       {rows.map((setIndex) => {
         const logged = slotSets.find((s) => s.set_index === setIndex)
         const prevSame = prev.data?.find((p) => p.set_index === setIndex)
