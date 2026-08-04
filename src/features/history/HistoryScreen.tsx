@@ -1,22 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
-import { supabase } from '../../lib/supabase'
 import { formatMS } from '../../lib/time'
+import { useSessionSummaries } from './queries'
 
 export function HistoryScreen() {
   const navigate = useNavigate()
-  const sessions = useQuery({
-    queryKey: ['sessionSummaries'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('v_session_summary')
-        .select('*')
-        .order('started_at', { ascending: false })
-        .limit(60)
-      if (error) throw error
-      return data
-    },
-  })
+  const sessions = useSessionSummaries()
 
   return (
     <main className="flex min-h-dvh flex-col gap-4 px-5 pt-4 pb-8 font-sans">

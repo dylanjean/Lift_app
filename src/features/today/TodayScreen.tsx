@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { nextDayIndex } from '../../lib/rotation'
 import { DAILY_GOAL_OZ, mlToOz } from '../../lib/water'
 import { elapsedSeconds, formatHMS } from '../../lib/time'
 import { useTick } from '../../lib/useTick'
 import { useActiveFast } from '../fast/queries'
+import { useSessionSummaries } from '../history/queries'
 import { WaterQuickAdd } from './WaterQuickAdd'
 import {
   useActiveSession,
@@ -18,11 +20,14 @@ export function TodayScreen() {
   const days = useProgramDays()
   const lastDay = useLastCompletedDayIndex()
   const active = useActiveSession()
+  const recent = useSessionSummaries(10)
   const startSession = useStartSession()
   const waterMl = useTodayWaterMl()
   const fast = useActiveFast()
+  // null = follow the rotation's suggestion; a number = manual override
+  const [pickedIdx, setPickedIdx] = useState<number | null>(null)
 
-  useTick(1000, Boolean(fast.data)) // fast chip re-renders each second only while fasting
+  useTick(1000, Boolean(fast.data))
 
   if (days.isPending || lastDay.isPending || active.isPending) {
     return <Shell />
@@ -37,15 +42,23 @@ export function TodayScreen() {
     )
   }
 
-  const upNext = days.data[nextDayIndex(lastDay.data ?? null, days.data.length)]!
+  const suggestedIdx = nextDayIndex(lastDay.data ?? null, days.data.length)
+  const selectedIdx = pickedIdx ?? suggestedIdx
+  const selected = days.data[selectedIdx]!
   const activeSession = active.data
   const waterOz = mlToOz(waterMl.data ?? 0)
+
+  /** most recent completed session per day label, for the "last done" hints */
+  const lastByLabel = new Map<string, string>()
+  for (const s of recent.data ?? []) {
+    if (s.label && s.started_at && !lastByLabel.has(s.label)) lastByLabel.set(s.label, s.started_at)
+  }
 
   function handlePrimary() {
     if (activeSession) {
       void navigate(`/session/${activeSession.id}`)
     } else {
-      startSession.mutate(upNext.id, {
+      startSession.mutate(selected.id, {
         onSuccess: (s) => void navigate(`/session/${s.id}`),
       })
     }
@@ -69,23 +82,92 @@ export function TodayScreen() {
         </Link>
       </div>
 
-      {/* the day in focus */}
-      <div className="flex flex-1 flex-col justify-center">
-        <p className="text-sm text-muted">
-          {activeSession ? 'In progress' : 'Up next'} · day {(activeSession ? days.data.find((d) => d.id === activeSession.program_day_id) ?? upNext : upNext).day_index + 1} of {days.data.length}
+      {/* day picker — suggestion pre-selected, tap to override */}
+      <div>
+        <p className="mb-2 font-mono text-xs text-muted">
+          {activeSession ? 'WORKOUT IN PROGRESS' : 'NEXT WORKOUT'}
         </p>
-        <h1 className="font-display text-6xl font-black tracking-wide uppercase">
-          {activeSession ? activeSession.program_day.label : upNext.label}
-        </h1>
-        <p className="mt-1 text-sm text-muted">{upNext.slotCount} exercises</p>
+        <div className="flex gap-2">
+          {days.data.map((d, i) => {
+            const isSelected = !activeSession && i === selectedIdx
+            const isActive = activeSession?.program_day_id === d.id
+            const last = lastByLabel.get(d.label)
+            return (
+              <button
+                key={d.id}
+                type="button"
+                disabled={Boolean(activeSession)}
+                onClick={() => setPickedIdx(i)}
+                className={`flex h-24 flex-1 flex-col items-center justify-center gap-1 rounded-sm border ${
+                  isSelected || isActive
+                    ? 'border-plate-blue bg-raised'
+                    : 'border-raised disabled:opacity-40'
+                }`}
+              >
+                <span
+                  className={`font-display text-lg font-black tracking-wide uppercase ${
+                    isSelected || isActive ? 'text-ink' : 'text-muted'
+                  }`}
+                >
+                  {d.label}
+                </span>
+                <span className="font-mono text-[10px] text-muted">
+                  {i === suggestedIdx && !activeSession
+                    ? 'UP NEXT'
+                    : last
+                      ? daysAgo(last)
+                      : '—'}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+        <p className="mt-2 text-sm text-muted">
+          {selected.slotCount} exercises
+          {pickedIdx !== null && pickedIdx !== suggestedIdx && !activeSession && (
+            <span className="text-plate-yellow"> · off rotation</span>
+          )}
+        </p>
+      </div>
+
+      {/* recent workouts */}
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="mb-2 flex items-center justify-between font-mono text-xs">
+          <span className="text-muted">RECENT</span>
+          <div className="flex gap-5">
+            <Link to="/progress" className="flex h-11 items-center text-muted">PROGRESS ›</Link>
+            <Link to="/history" className="flex h-11 items-center text-muted">ALL ›</Link>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 overflow-y-auto">
+          {recent.data?.slice(0, 3).map((s) => (
+            <div key={s.session_id} className="flex h-13 items-center justify-between rounded-sm border border-raised px-3 py-2">
+              <div className="flex items-baseline gap-3">
+                <span className="w-12 font-display text-sm font-bold tracking-wide uppercase">{s.label}</span>
+                <span className="font-mono text-xs text-muted">
+                  {s.started_at &&
+                    new Date(s.started_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+              <div className="flex items-baseline gap-3 font-mono text-xs text-muted">
+                <span>
+                  <span className="text-ink">{Math.round(Number(s.volume)).toLocaleString()}</span> lb
+                </span>
+                <span>
+                  <span className="text-ink">{s.sets}</span> sets
+                </span>
+                {(s.swaps ?? 0) > 0 && <span className="text-plate-yellow">{s.swaps}⇄</span>}
+              </div>
+            </div>
+          ))}
+          {recent.data?.length === 0 && (
+            <p className="py-4 text-center text-sm text-muted">No workouts yet — first one's below.</p>
+          )}
+        </div>
       </div>
 
       {/* bottom third: water + primary action */}
       <div className="flex flex-col gap-4">
-        <div className="flex gap-6 font-mono text-xs">
-          <Link to="/progress" className="flex h-11 items-center text-muted">PROGRESS ›</Link>
-          <Link to="/history" className="flex h-11 items-center text-muted">HISTORY ›</Link>
-        </div>
         <div>
           <div className="mb-2 flex items-baseline justify-between">
             <span className="text-sm text-muted">Water</span>
@@ -109,13 +191,20 @@ export function TodayScreen() {
           disabled={startSession.isPending}
           className="h-16 rounded-sm bg-plate-blue font-display text-lg font-bold tracking-wide text-plate-white disabled:opacity-60"
         >
-          {activeSession ? 'RESUME WORKOUT' : 'START WORKOUT'}
+          {activeSession ? 'RESUME WORKOUT' : `START ${selected.label.toUpperCase()}`}
         </button>
       </div>
     </Shell>
   )
 }
 
+function daysAgo(iso: string): string {
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000)
+  if (days === 0) return 'TODAY'
+  if (days === 1) return '1D AGO'
+  return `${days}D AGO`
+}
+
 function Shell({ children }: { children?: React.ReactNode }) {
-  return <main className="flex min-h-dvh flex-col gap-6 px-5 pt-4 pb-8 font-sans">{children}</main>
+  return <main className="flex min-h-dvh flex-col gap-5 px-5 pt-4 pb-8 font-sans">{children}</main>
 }
