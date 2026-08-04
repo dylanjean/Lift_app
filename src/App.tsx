@@ -6,6 +6,7 @@ import { TodayScreen } from './features/today/TodayScreen'
 import { ActiveSessionScreen } from './features/session/ActiveSessionScreen'
 import { FastScreen } from './features/fast/FastScreen'
 import { ProgressScreen } from './features/progress/ProgressScreen'
+import { HistoryScreen } from './features/history/HistoryScreen'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/session/:id" element={<ActiveSessionScreen />} />
           <Route path="/fast" element={<FastScreen />} />
           <Route path="/progress" element={<ProgressScreen />} />
+          <Route path="/history" element={<HistoryScreen />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

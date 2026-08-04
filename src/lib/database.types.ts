@@ -286,6 +286,13 @@ export type Database = {
             foreignKeyName: "set_log_session_id_fkey"
             columns: ["session_id"]
             isOneToOne: false
+            referencedRelation: "v_session_summary"
+            referencedColumns: ["session_id"]
+          },
+          {
+            foreignKeyName: "set_log_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
             referencedRelation: "workout_session"
             referencedColumns: ["id"]
           },
@@ -359,6 +366,19 @@ export type Database = {
       }
     }
     Views: {
+      v_session_summary: {
+        Row: {
+          active_seconds: number | null
+          ended_at: string | null
+          label: string | null
+          session_id: string | null
+          sets: number | null
+          started_at: string | null
+          swaps: number | null
+          volume: number | null
+        }
+        Relationships: []
+      }
       v_slot_progression: {
         Row: {
           day: string | null
