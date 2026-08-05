@@ -14,16 +14,24 @@ export function VideoSheet({
   onClose: () => void
 }) {
   const ytId = youtubeId(videoUrl)
+  // M&S hosts some videos on Vimeo; player.vimeo.com URLs are already
+  // embed URLs (keep any h= hash — unlisted videos need it)
+  const vimeo = videoUrl.startsWith('https://player.vimeo.com/')
+  const embedSrc = ytId
+    ? `https://www.youtube-nocookie.com/embed/${ytId}?rel=0`
+    : vimeo
+      ? `${videoUrl}${videoUrl.includes('?') ? '&' : '?'}badge=0`
+      : null
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-end" role="dialog" aria-label={`${name} form video`}>
       <button type="button" aria-label="close" onClick={onClose} className="flex-1 bg-black/60" />
       <div className="rounded-t-sm border-t border-raised bg-surface px-4 pt-4 pb-8">
         <p className="mb-3 font-display text-sm font-bold tracking-wide uppercase">{name} — form</p>
-        {ytId ? (
+        {embedSrc ? (
           <div className="aspect-video w-full overflow-hidden rounded-sm bg-black">
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${ytId}?rel=0`}
+              src={embedSrc}
               title={`${name} form video`}
               className="h-full w-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

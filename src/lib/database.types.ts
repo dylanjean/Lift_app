@@ -46,6 +46,7 @@ export type Database = {
           name: string
           primary_muscle: string | null
           user_id: string | null
+          video_url: string | null
         }
         Insert: {
           cues?: string | null
@@ -54,6 +55,7 @@ export type Database = {
           name: string
           primary_muscle?: string | null
           user_id?: string | null
+          video_url?: string | null
         }
         Update: {
           cues?: string | null
@@ -62,6 +64,7 @@ export type Database = {
           name?: string
           primary_muscle?: string | null
           user_id?: string | null
+          video_url?: string | null
         }
         Relationships: []
       }

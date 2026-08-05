@@ -8,6 +8,7 @@ import { HelpButton, HelpItem } from '../../components/HelpButton'
 import { PlateStack } from '../../components/PlateStack'
 import { SetRow } from './SetRow'
 import { SwapSheet } from './SwapSheet'
+import { VideoSheet } from './VideoSheet'
 import type { LoggedSet, Slot, SlotExercise } from './queries'
 import {
   useDiscardSession,
@@ -31,6 +32,7 @@ function Session({ sessionId }: { sessionId: string }) {
   const logSet = useLogSet()
   const [slotIndex, setSlotIndex] = useState<number | null>(null) // null until initial focus computed
   const [swapOpen, setSwapOpen] = useState(false)
+  const [videoOpen, setVideoOpen] = useState(false)
   // Slot → chosen exercise for slots swapped this session but not yet logged.
   const [swapChoice, setSwapChoice] = useState<Record<string, SlotExercise>>({})
   const [restEndsAt, setRestEndsAt] = useState<number | null>(null)
@@ -126,14 +128,26 @@ function Session({ sessionId }: { sessionId: string }) {
       </div>
       <div className="mb-1 flex items-start justify-between gap-2">
         <h1 className="font-display text-3xl font-black tracking-wide uppercase">{currentExercise.name}</h1>
-        <button
-          type="button"
-          aria-label="swap exercise"
-          onClick={() => setSwapOpen(true)}
-          className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-raised text-lg"
-        >
-          ⇄
-        </button>
+        <div className="flex shrink-0 gap-2">
+          {currentExercise.video_url && (
+            <button
+              type="button"
+              aria-label="watch form video"
+              onClick={() => setVideoOpen(true)}
+              className="mt-1 flex h-11 w-11 items-center justify-center rounded-sm border border-raised text-lg"
+            >
+              ▶
+            </button>
+          )}
+          <button
+            type="button"
+            aria-label="swap exercise"
+            onClick={() => setSwapOpen(true)}
+            className="mt-1 flex h-11 w-11 items-center justify-center rounded-sm border border-raised text-lg"
+          >
+            ⇄
+          </button>
+        </div>
       </div>
       {swapped && (
         <p className="mb-1 font-mono text-xs text-plate-yellow">SWAPPED · planned: {slot.exercise.name}</p>
@@ -216,6 +230,9 @@ function Session({ sessionId }: { sessionId: string }) {
           tap to change how long the rest timer runs (30s → 45s → 1:00 → 1:30 → 2:00). Remembered
           for future workouts. +15 on the running timer adds time once.
         </HelpItem>
+        <HelpItem term="▶">
+          watch the form video for this exercise (from the program's site) without leaving the app.
+        </HelpItem>
         <HelpItem term="⇄">
           equipment taken? Swap this exercise for a ranked alternate — your progress still counts
           toward the same program slot.
@@ -224,6 +241,14 @@ function Session({ sessionId }: { sessionId: string }) {
           your previous session's sets for this exercise, weight×reps, oldest set first.
         </HelpItem>
       </HelpButton>
+
+      {videoOpen && currentExercise.video_url && (
+        <VideoSheet
+          name={currentExercise.name}
+          videoUrl={currentExercise.video_url}
+          onClose={() => setVideoOpen(false)}
+        />
+      )}
 
       {swapOpen && (
         <SwapSheet

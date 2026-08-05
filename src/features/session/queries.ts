@@ -6,6 +6,7 @@ export interface SlotExercise {
   name: string
   equipment: string | null
   cues: string | null
+  video_url: string | null
 }
 
 export interface Slot {
@@ -41,7 +42,7 @@ export function useSessionDetail(sessionId: string) {
              id, label,
              program_day_exercise(
                id, slot_order, target_sets, target_reps, rest_seconds,
-               exercise(id, name, equipment, cues)
+               exercise(id, name, equipment, cues, video_url)
              )
            )`,
         )
@@ -106,7 +107,7 @@ export function useAlternates(plannedExerciseId: string) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('exercise_alternate')
-        .select('rank, alternate:exercise!exercise_alternate_alternate_id_fkey(id, name, equipment, cues)')
+        .select('rank, alternate:exercise!exercise_alternate_alternate_id_fkey(id, name, equipment, cues, video_url)')
         .eq('exercise_id', plannedExerciseId)
         .order('rank')
       if (error) throw error
@@ -124,7 +125,7 @@ export function useExerciseSearch(term: string) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('exercise')
-        .select('id, name, equipment, cues')
+        .select('id, name, equipment, cues, video_url')
         .ilike('name', `%${q}%`)
         .order('name')
         .limit(12)

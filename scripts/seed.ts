@@ -24,6 +24,7 @@ interface SeedExercise {
   primary_muscle: string | null
   equipment: string | null
   cues: string | null
+  video_url: string | null
 }
 
 interface SeedSlot {
@@ -88,7 +89,7 @@ console.log(`Seeding for ${user.email}`)
 // -- exercises: insert missing global rows ------------------------------
 const { data: existing, error: exErr } = await db
   .from('exercise')
-  .select('id, name')
+  .select('id, name, video_url')
   .is('user_id', null)
 if (exErr) fail(`reading exercises: ${exErr.message}`)
 
@@ -106,6 +107,18 @@ if (missing.length > 0) {
 console.log(`Exercises: ${missing.length} inserted, ${seed.exercises.length - missing.length} already present`)
 
 const id = (name: string): string => idByName.get(name)! // validated above
+
+// refresh video_url on rows that already existed (seed file is the source
+// of truth for videos; cues/muscle stay untouched to preserve owner edits)
+const staleVideo = seed.exercises.filter((e) => {
+  const row = existing.find((x) => x.name === e.name)
+  return row && row.video_url !== e.video_url
+})
+for (const e of staleVideo) {
+  const { error } = await db.from('exercise').update({ video_url: e.video_url }).eq('id', id(e.name))
+  if (error) fail(`updating video for "${e.name}": ${error.message}`)
+}
+if (staleVideo.length > 0) console.log(`Videos: ${staleVideo.length} exercise video links refreshed`)
 
 // -- alternates: rewrite deterministically ------------------------------
 const seededIds = seed.exercises.map((e) => id(e.name))
@@ -129,7 +142,13 @@ const { data: prior, error: priorErr } = await db
 if (priorErr) fail(`checking for existing program: ${priorErr.message}`)
 
 if (prior) {
-  if (!replace) fail(`program "${seed.program.name}" already exists — rerun with --replace to rebuild it`)
+  if (!replace) {
+    // exercises/alternates/videos above still refreshed — that's the point
+    // of a re-run; the program structure itself is only rebuilt on demand
+    console.log(`Program "${seed.program.name}" already exists — left untouched (use --replace to rebuild)`)
+    console.log('✅ Seed complete')
+    process.exit(0)
+  }
   const { error } = await db.from('program').delete().eq('id', prior.id)
   if (error)
     fail(
