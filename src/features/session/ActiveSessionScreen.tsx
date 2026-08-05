@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router'
 import { elapsedSeconds, formatHMS, formatMS } from '../../lib/time'
 import { useTick } from '../../lib/useTick'
 import { useWakeLock } from '../../lib/useWakeLock'
+import { getRestPref, nextRestPreset, setRestPref } from '../../lib/restPref'
+import { HelpButton, HelpItem } from '../../components/HelpButton'
 import { PlateStack } from '../../components/PlateStack'
 import { SetRow } from './SetRow'
 import { SwapSheet } from './SwapSheet'
@@ -32,6 +34,8 @@ function Session({ sessionId }: { sessionId: string }) {
   // Slot → chosen exercise for slots swapped this session but not yet logged.
   const [swapChoice, setSwapChoice] = useState<Record<string, SlotExercise>>({})
   const [restEndsAt, setRestEndsAt] = useState<number | null>(null)
+  // user's pace, not the program's — persists across sessions on this device
+  const [restSeconds, setRestSeconds] = useState(getRestPref)
 
   useWakeLock(true)
   useTick(1000)
@@ -104,9 +108,19 @@ function Session({ sessionId }: { sessionId: string }) {
 
       {/* slot header */}
       <div className="mb-1 flex items-center justify-between">
-        <p className="font-mono text-xs text-muted">
-          SLOT {slotIndex + 1}/{allSlots.length} · {slot.target_sets}×{slot.target_reps}
-          {slot.rest_seconds ? ` · rest ${formatMS(slot.rest_seconds)}` : ''}
+        <p className="flex items-center font-mono text-xs text-muted">
+          SLOT {slotIndex + 1}/{allSlots.length} · {slot.target_sets}×{slot.target_reps} ·&nbsp;
+          <button
+            type="button"
+            onClick={() => {
+              const next = nextRestPreset(restSeconds)
+              setRestSeconds(next)
+              setRestPref(next)
+            }}
+            className="flex h-11 items-center text-plate-yellow"
+          >
+            rest {formatMS(restSeconds)} ⟳
+          </button>
         </p>
         {done && <span className="font-mono text-xs text-plate-green">DONE</span>}
       </div>
@@ -148,7 +162,7 @@ function Session({ sessionId }: { sessionId: string }) {
             })
             const isLastOfSlot = setIndex >= slot.target_sets
             if (!isLastOfSlot || slotIndex < allSlots.length - 1) {
-              if (slot.rest_seconds) setRestEndsAt(Date.now() + slot.rest_seconds * 1000)
+              setRestEndsAt(Date.now() + restSeconds * 1000)
             }
           }}
         />
@@ -162,10 +176,16 @@ function Session({ sessionId }: { sessionId: string }) {
           <div className="flex h-16 items-center justify-between rounded-sm bg-plate-yellow px-4 text-surface">
             <span className="font-display text-sm font-bold">REST</span>
             <span className="font-mono text-3xl font-medium">{formatMS(restLeft)}</span>
-            <button type="button" onClick={() => setRestEndsAt(null)}
-              className="h-11 rounded-sm px-3 font-display text-sm font-bold">
-              SKIP
-            </button>
+            <div className="flex">
+              <button type="button" onClick={() => setRestEndsAt((t) => (t === null ? null : t + 15_000))}
+                className="h-11 rounded-sm px-2 font-mono text-sm font-bold">
+                +15
+              </button>
+              <button type="button" onClick={() => setRestEndsAt(null)}
+                className="h-11 rounded-sm px-2 font-display text-sm font-bold">
+                SKIP
+              </button>
+            </div>
           </div>
         ) : (
           <div className="flex gap-2">
@@ -175,6 +195,35 @@ function Session({ sessionId }: { sessionId: string }) {
         )}
         <FinishRow sessionId={sessionId} startedAt={started_at} anySets={(sets.data?.length ?? 0) > 0} />
       </div>
+
+      <HelpButton title="How logging works" raised>
+        <HelpItem term="lb">
+          the weight column. Type what's on the bar (or machine). Faded numbers are what you lifted
+          last time — leave the box empty and hit LOG to repeat them exactly.
+        </HelpItem>
+        <HelpItem term="reps">
+          how many times you lifted it this set. The faded number is last time's reps (or the
+          program target, like 5 or 8).
+        </HelpItem>
+        <HelpItem term="rpe">
+          optional "how hard was that, 1–10" (10 = couldn't do one more rep). Skip it if you don't
+          care — it's never required.
+        </HelpItem>
+        <HelpItem term="LOG">
+          saves the set and starts your rest countdown. Sets lock in with a ✓ once logged.
+        </HelpItem>
+        <HelpItem term="rest 0:45 ⟳">
+          tap to change how long the rest timer runs (30s → 45s → 1:00 → 1:30 → 2:00). Remembered
+          for future workouts. +15 on the running timer adds time once.
+        </HelpItem>
+        <HelpItem term="⇄">
+          equipment taken? Swap this exercise for a ranked alternate — your progress still counts
+          toward the same program slot.
+        </HelpItem>
+        <HelpItem term="last:">
+          your previous session's sets for this exercise, weight×reps, oldest set first.
+        </HelpItem>
+      </HelpButton>
 
       {swapOpen && (
         <SwapSheet

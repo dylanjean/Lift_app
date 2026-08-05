@@ -6,6 +6,7 @@ import { elapsedSeconds, formatHMS } from '../../lib/time'
 import { useTick } from '../../lib/useTick'
 import { useActiveFast } from '../fast/queries'
 import { useSessionSummaries } from '../history/queries'
+import { HelpButton, HelpItem } from '../../components/HelpButton'
 import { WaterQuickAdd } from './WaterQuickAdd'
 import {
   useActiveSession,
@@ -194,6 +195,26 @@ export function TodayScreen() {
           {activeSession ? 'RESUME WORKOUT' : `START ${selected.label.toUpperCase()}`}
         </button>
       </div>
+
+      <HelpButton title="How this screen works">
+        <HelpItem term="NEXT WORKOUT">
+          the highlighted day is what the Push → Pull → Legs rotation says is next. Tap a different
+          day to do it instead — the big button always names what it will start.
+        </HelpItem>
+        <HelpItem term="UP NEXT / 3D AGO">
+          under each day: whether it's the rotation's suggestion, or how long since you last did it.
+        </HelpItem>
+        <HelpItem term="RECENT">
+          your last three workouts — total pounds lifted, sets logged, and ⇄ marks sets done on a
+          substitute exercise.
+        </HelpItem>
+        <HelpItem term="Water">
+          tap a button to log a drink. Hold any button half a second for a custom amount.
+        </HelpItem>
+        <HelpItem term="FASTING">
+          top-right shows the running fast timer; tap it to start or end a fast.
+        </HelpItem>
+      </HelpButton>
     </Shell>
   )
 }

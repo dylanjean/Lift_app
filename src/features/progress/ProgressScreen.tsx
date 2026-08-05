@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { HelpButton, HelpItem } from '../../components/HelpButton'
 import { useSlotPicker, useSlotProgression } from './queries'
 
 type Metric = 'est_1rm' | 'top_weight' | 'volume'
@@ -137,6 +138,19 @@ export function ProgressScreen() {
       <p className="font-mono text-xs text-muted">
         <span className="text-plate-yellow">●</span> = performed on a substitute exercise
       </p>
+
+      <HelpButton title="Reading this chart">
+        <HelpItem term="EST 1RM">
+          estimated one-rep max — the heaviest single lift your best set predicts (Epley formula).
+          The cleanest single number for "am I getting stronger".
+        </HelpItem>
+        <HelpItem term="TOP SET">the heaviest weight you actually lifted that day.</HelpItem>
+        <HelpItem term="VOLUME">total pounds moved that day (weight × reps, all sets summed).</HelpItem>
+        <HelpItem term="yellow dot">
+          that day you did a substitute exercise (equipment was taken), so a dip there isn't lost
+          strength. Tap a dot to see what you performed.
+        </HelpItem>
+      </HelpButton>
     </Shell>
   )
 }
