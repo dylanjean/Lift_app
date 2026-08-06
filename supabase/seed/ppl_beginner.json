@@ -137,84 +137,84 @@
       "primary_muscle": "shoulders",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=FRxZ6wr5bpA"
     },
     {
       "name": "Machine Shoulder Press",
       "primary_muscle": "shoulders",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=fj_VAk1jfZ8"
     },
     {
       "name": "Barbell Bench Press",
       "primary_muscle": "chest",
       "equipment": "barbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=tuwHzzPdaGc"
     },
     {
       "name": "Machine Chest Press",
       "primary_muscle": "chest",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=dMQdd40Y3FQ"
     },
     {
       "name": "Push-Up",
       "primary_muscle": "chest",
       "equipment": "bodyweight",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=KEFQyLkDYtI"
     },
     {
       "name": "Bench Dip",
       "primary_muscle": "triceps",
       "equipment": "bodyweight",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/756783893?h=d0044faa39&badge=0&autopause=0&player_id=0&app_id=58479"
     },
     {
       "name": "Close-Grip Bench Press",
       "primary_muscle": "triceps",
       "equipment": "barbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=j-NhORwJDb4"
     },
     {
       "name": "Cable Lateral Raise",
       "primary_muscle": "shoulders",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/760001811?badge=0&autopause=0&player_id=0&app_id=58479"
     },
     {
       "name": "Machine Lateral Raise",
       "primary_muscle": "shoulders",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/1082966892?badge=0&autopause=0&player_id=0&app_id=58479"
     },
     {
       "name": "Overhead Dumbbell Extension",
       "primary_muscle": "triceps",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=LlCFtWCQc5s"
     },
     {
       "name": "EZ-Bar Skullcrusher",
       "primary_muscle": "triceps",
       "equipment": "ez-bar",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=K6MSN4hCDM4"
     },
     {
       "name": "Overhead Cable Extension",
       "primary_muscle": "triceps",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=NRENeEgaIgA"
     },
     {
       "name": "Lat Pull Down",
@@ -228,154 +228,154 @@
       "primary_muscle": "lats",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=wFj808u2HWU"
     },
     {
       "name": "Dumbbell Row",
       "primary_muscle": "back",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=YZgVEy6cmaY"
     },
     {
       "name": "Seated Cable Row",
       "primary_muscle": "back",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/756788734?h=145dc3923d"
     },
     {
       "name": "Chest-Supported Row",
       "primary_muscle": "back",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=oKNjFM1bxAs"
     },
     {
       "name": "Barbell Shrug",
       "primary_muscle": "traps",
       "equipment": "barbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=6hNudn7Peco"
     },
     {
       "name": "Cable Shrug",
       "primary_muscle": "traps",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=LwTq3v2GUF4"
     },
     {
       "name": "EZ-Bar Curl",
       "primary_muscle": "biceps",
       "equipment": "ez-bar",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/756794053?badge=0&autopause=0&quality_selector=1&player_id=0&app_id=58479"
     },
     {
       "name": "Dumbbell Curl",
       "primary_muscle": "biceps",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/756794078?badge=0&autopause=0&quality_selector=1&player_id=0&app_id=58479"
     },
     {
       "name": "Cable Curl",
       "primary_muscle": "biceps",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/760001419?badge=0&autopause=0&quality_selector=1&player_id=0&app_id=58479"
     },
     {
       "name": "Cable Hammer Curl",
       "primary_muscle": "biceps",
       "equipment": "cable",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/760001402?badge=0&autopause=0&quality_selector=1&player_id=0&app_id=58479"
     },
     {
       "name": "Reverse Curl",
       "primary_muscle": "biceps",
       "equipment": "ez-bar",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/760002600?badge=0&autopause=0&player_id=0&app_id=58479"
     },
     {
       "name": "Goblet Squat",
       "primary_muscle": "quads",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=5Y3KW5rWMh4"
     },
     {
       "name": "Hack Squat",
       "primary_muscle": "quads",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=63tboDKQksc"
     },
     {
       "name": "Smith Machine Squat",
       "primary_muscle": "quads",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=BtfMX4WqUBo"
     },
     {
       "name": "Romanian Deadlift",
       "primary_muscle": "hamstrings",
       "equipment": "barbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=-m45n1_x32E"
     },
     {
       "name": "Trap Bar Deadlift",
       "primary_muscle": "hamstrings",
       "equipment": "barbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=-bSCG8ARHSk"
     },
     {
       "name": "Dumbbell Romanian Deadlift",
       "primary_muscle": "hamstrings",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=IJdUtnxAmNo"
     },
     {
       "name": "Bulgarian Split Squat",
       "primary_muscle": "quads",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=uqI3GVwfToU"
     },
     {
       "name": "Dumbbell Lunge",
       "primary_muscle": "quads",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/877881961?badge=0&autopause=0&player_id=0&app_id=58479"
     },
     {
       "name": "Seated Leg Curl",
       "primary_muscle": "hamstrings",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=3BWiLFc8Dbg"
     },
     {
       "name": "Standing Calf Raise",
       "primary_muscle": "calves",
       "equipment": "machine",
       "cues": null,
-      "video_url": null
+      "video_url": "https://www.youtube.com/watch?v=RBslMmWqzzE"
     },
     {
       "name": "Single-Leg Dumbbell Calf Raise",
       "primary_muscle": "calves",
       "equipment": "dumbbell",
       "cues": null,
-      "video_url": null
+      "video_url": "https://player.vimeo.com/video/756793346?h=a0ed2bcc9e"
     }
   ],
   "days": [
