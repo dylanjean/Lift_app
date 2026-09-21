@@ -73,22 +73,24 @@ export function ProgramScreen() {
       <div className="flex flex-col gap-2">
         {day?.slots.map((s, i) => (
           <div key={s.id} className="flex items-center gap-2 rounded-sm border border-raised px-3 py-2">
+            {/* min-w-0 lets the name column shrink below its text width;
+                without it long names push the trailing buttons off-screen */}
             <button
               type="button"
               onClick={() => setSheet({ kind: 'replace', slot: s })}
-              className="flex min-h-11 flex-1 flex-col items-start text-left"
+              className="flex min-h-11 min-w-0 flex-1 flex-col items-start text-left"
             >
-              <span className="text-base text-ink">{s.exercise.name}</span>
+              <span className="max-w-full truncate text-base text-ink">{s.exercise.name}</span>
               <span className="font-mono text-xs text-muted">{s.exercise.primary_muscle ?? '—'}</span>
             </button>
             <button
               type="button"
               onClick={() => setSheet({ kind: 'targets', slot: s })}
-              className="h-11 rounded-sm border border-raised px-2 font-mono text-xs text-ink"
+              className="h-11 shrink-0 rounded-sm border border-raised px-2 font-mono text-xs text-ink"
             >
               {s.target_sets}×{s.target_reps}
             </button>
-            <div className="flex flex-col">
+            <div className="flex shrink-0 flex-col">
               <button
                 type="button"
                 aria-label={`move ${s.exercise.name} up`}
@@ -117,7 +119,7 @@ export function ProgramScreen() {
                   remove.mutate(s.id)
                 }
               }}
-              className="flex h-11 w-8 items-center justify-center text-muted disabled:opacity-30"
+              className="flex h-11 w-8 shrink-0 items-center justify-center text-muted disabled:opacity-30"
             >
               ✕
             </button>
