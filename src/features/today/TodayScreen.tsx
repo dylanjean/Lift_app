@@ -136,6 +136,7 @@ export function TodayScreen() {
         <div className="mb-2 flex items-center justify-between font-mono text-xs">
           <span className="text-muted">RECENT</span>
           <div className="flex gap-5">
+            <Link to="/program" className="flex h-11 items-center text-muted">PROGRAM ›</Link>
             <Link to="/progress" className="flex h-11 items-center text-muted">PROGRESS ›</Link>
             <Link to="/history" className="flex h-11 items-center text-muted">ALL ›</Link>
           </div>

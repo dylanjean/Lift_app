@@ -7,6 +7,7 @@ import { ActiveSessionScreen } from './features/session/ActiveSessionScreen'
 import { FastScreen } from './features/fast/FastScreen'
 import { ProgressScreen } from './features/progress/ProgressScreen'
 import { HistoryScreen } from './features/history/HistoryScreen'
+import { ProgramScreen } from './features/program/ProgramScreen'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/fast" element={<FastScreen />} />
           <Route path="/progress" element={<ProgressScreen />} />
           <Route path="/history" element={<HistoryScreen />} />
+          <Route path="/program" element={<ProgramScreen />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
