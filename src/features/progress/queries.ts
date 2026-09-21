@@ -6,6 +6,8 @@ export function useSlotPicker() {
   return useQuery({
     queryKey: ['slotPicker'],
     queryFn: async () => {
+      // deliberately NOT filtered by archived_at: removed slots keep their
+      // logged history, and this picker is how you reach those charts
       const { data, error } = await supabase
         .from('program_day')
         .select('id, day_index, label, program_day_exercise(id, slot_order, exercise(name))')

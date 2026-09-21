@@ -49,6 +49,8 @@ export function useEditorDays() {
         .select(
           'id, day_index, label, program_day_exercise(id, slot_order, target_sets, target_reps, exercise(id, name, primary_muscle))',
         )
+        // dotted path filters the embedded rows, not the days
+        .is('program_day_exercise.archived_at', null)
         .order('day_index')
       if (error) throw error
       return data.map(
@@ -125,6 +127,29 @@ export function useMoveSlot() {
           .eq('id', s.id)
         if (error) throw error
       }
+    },
+    onSuccess: () => invalidateProgramStructure(qc),
+  })
+}
+
+/**
+ * Remove a slot from the plan. A slot that was never trained deletes
+ * outright; one with logged history hits the intentional FK restrict and
+ * falls back to a soft archive, which keeps its sets reachable in charts.
+ */
+export function useRemoveSlot() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: async (slotId: string) => {
+      const del = await supabase.from('program_day_exercise').delete().eq('id', slotId)
+      if (del.error === null) return 'deleted'
+      if (del.error.code !== '23503') throw del.error // not the FK restrict — surface it
+      const arch = await supabase
+        .from('program_day_exercise')
+        .update({ archived_at: new Date().toISOString() })
+        .eq('id', slotId)
+      if (arch.error) throw arch.error
+      return 'archived'
     },
     onSuccess: () => invalidateProgramStructure(qc),
   })

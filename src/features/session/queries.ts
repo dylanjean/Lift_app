@@ -46,6 +46,8 @@ export function useSessionDetail(sessionId: string) {
              )
            )`,
         )
+        // archived slots stay out of new/resumed workouts
+        .is('program_day.program_day_exercise.archived_at', null)
         .eq('id', sessionId)
         .single()
       if (error) throw error

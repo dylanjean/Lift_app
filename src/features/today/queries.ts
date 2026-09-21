@@ -10,6 +10,8 @@ export function useProgramDays() {
       const { data, error } = await supabase
         .from('program_day')
         .select('id, day_index, label, program_day_exercise(id)')
+        // archived slots don't count toward "6 exercises"
+        .is('program_day_exercise.archived_at', null)
         .order('day_index')
       if (error) throw error
       return data.map((d) => ({

@@ -8,6 +8,7 @@ import {
   useAddSlot,
   useEditorDays,
   useMoveSlot,
+  useRemoveSlot,
   useReplaceSlotExercise,
   useUpdateSlotTargets,
 } from './queries'
@@ -33,9 +34,11 @@ export function ProgramScreen() {
   const targets = useUpdateSlotTargets()
   const move = useMoveSlot()
   const add = useAddSlot()
+  const remove = useRemoveSlot()
 
   const day = days.data?.[dayIdx]
-  const busy = replace.isPending || targets.isPending || move.isPending || add.isPending
+  const busy =
+    replace.isPending || targets.isPending || move.isPending || add.isPending || remove.isPending
 
   return (
     <main className="flex min-h-dvh flex-col gap-4 px-5 pt-4 pb-8 font-sans">
@@ -105,9 +108,23 @@ export function ProgramScreen() {
                 ▼
               </button>
             </div>
+            <button
+              type="button"
+              aria-label={`remove ${s.exercise.name}`}
+              disabled={busy}
+              onClick={() => {
+                if (window.confirm(`Remove ${s.exercise.name} from ${day.label} day? Logged history stays in your charts.`)) {
+                  remove.mutate(s.id)
+                }
+              }}
+              className="flex h-11 w-8 items-center justify-center text-muted disabled:opacity-30"
+            >
+              ✕
+            </button>
           </div>
         ))}
       </div>
+      {remove.isError && <p className="text-xs text-plate-red">{remove.error.message}</p>}
 
       <button
         type="button"
@@ -183,6 +200,10 @@ export function ProgramScreen() {
         </HelpItem>
         <HelpItem term="3×8">tap the targets chip to change sets and reps ('8-12' and 'AMRAP' are fine).</HelpItem>
         <HelpItem term="▲▼">reorder the day.</HelpItem>
+        <HelpItem term="✕">
+          remove an exercise from the plan. If you've logged sets on it, the history stays and its
+          chart remains reachable under Progress.
+        </HelpItem>
         <HelpItem term="+ ADD EXERCISE">
           new slot at the end of the day — pick a muscle group, then an exercise, then targets.
         </HelpItem>
